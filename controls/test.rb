@@ -1,9 +1,13 @@
-control "STIG_ID_OL6-00-000385_SEV_CAT-2_VULD-ID_V-50627_audit_directory_permissions_benchmark" do
-  title "Audit log directories must have mode 0755 or less permissive."
-  desc  "If users can delete audit logs, audit trails can be modified or destroyed."
+control "STIG_ID_OL6-00-000253_SEV_CAT-2_VULD-ID_V-50819_ldap_certs_benchmark" do
+  title "The LDAP client must use a TLS connection using trust certificates signed by the site CA."
+  desc  "The tls_cacertdir or tls_cacertfile directives are required when tls_checkpeer is configured (which is the default for openldap versions 2.1 and up). These directives define the path to the trust certificates signed by the site CA."
   impact 0.6
 
-  describe command('grep "^log_file" /etc/audit/auditd.conf|sed "s/^[^/]*//; s/[^/]*$//"|sudo xargs stat -c %a') do
-    its('stdout') { should be < 756 }
+  only_if do
+    file('/etc/pam_ldap.conf').exist?
+  end
+
+  describe command('grep cert /etc/pam_ldap.conf ') do
+    its('stdout') { should match /^ssl start_tls/i }
   end
 end
