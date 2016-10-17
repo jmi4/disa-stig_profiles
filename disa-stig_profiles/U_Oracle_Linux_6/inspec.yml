@@ -4,8 +4,8 @@ title: DISA STIG Red Hat Enterprise Linux 6 Benchmark
 summary: DISA STIG Red Hat Enterprise Linux 6 Benchmark translated from SCAP
 version: 1.0.0
 maintainer: Jeremy Miller
-copyright: Jeremy Miller
-copyright_email: jmiller3346@gmail.com
+copyright: 
+copyright_email: 
 license: Proprietary, All rights reserved
 supports:
   - os: redhat
